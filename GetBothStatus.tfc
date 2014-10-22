@@ -1,0 +1,3 @@
+workfold .
+status . /recursive /format:detailed
+history . /recursive /version:W~T /noprompt /format:detailed
