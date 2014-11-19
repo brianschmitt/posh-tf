@@ -11,6 +11,8 @@ function Get-TFStatus {
     $enabled = (-not $settings) -or $settings.EnablePromptStatus
     $hasTfs = $false
     if ($enabled) {
+        $filesystemProvider = (Get-Location | Select Provider).Provider.Name -like 'FileSystem'
+        if (!$filesystemProvider) { return }
         dbg 'Checking Workspace' $sw
         if ($settings.EnableServerStatus) {
             $tfsStatus = tf @$scriptPath\GetBothStatus.tfc
