@@ -15,10 +15,11 @@ function Get-TFStatus {
         if (!$filesystemProvider) { return }
         dbg 'Checking Workspace' $sw
         if ($settings.EnableServerStatus) {
-            $tfsStatus = tf @$scriptPath\GetBothStatus.tfc
+            $command = 'tf `@$scriptPath\GetBothStatus.tfc'
         } else {
-            $tfsStatus = tf @$scriptPath\GetLocalStatus.tfc
+            $command = 'tf `@$scriptPath\GetLocalStatus.tfc'
         }
+        $tfsStatus = Invoke-Expression $command
         $isWorkspace = $tfsStatus -match "Workspace"
         dbg 'Finished Checking Workspace and getting status' $sw
     }
